@@ -6,7 +6,7 @@ This project implements a sophisticated system that allows a robotic arm to mimi
 
 
 
-# HandGestureRecognition
+# Hand Gesture Recognition
 
 ## 🌟 Key Features
 
