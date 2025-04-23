@@ -301,7 +301,7 @@ void loop() {
 The loop function maintains the WebSocket connection by repeatedly calling `webSocket.loop()`.
 
 
-## 📝 Usage Instructions
+## 📝 Instructions
 
 1. Update the WiFi credentials (`ssid` and `password`) to match your network
 2. Upload this code to your ESP8266 board
@@ -310,6 +310,150 @@ The loop function maintains the WebSocket connection by repeatedly calling `webS
 5. Establish a WebSocket connection to the ESP8266 using its IP address and port 81
 6. Send comma-separated numeric values via the WebSocket connection
 7. The ESP8266 will parse these values and forward them to the Arduino
+
+
+
+# Controlling servo motors by Arduino Uno based on data received via serial communication
+
+## 💻 Software Implementation
+
+### Libraries Required
+```cpp
+#include <Servo.h>
+```
+
+### Data Structure
+
+```cpp
+struct Hand {
+  Servo finger;       // Servo object
+  bool done[10];      // Movement phase flags (10 intervals)
+};
+```
+
+- Define a custom `Hand` struct to represent each servo-controlled finger.
+- The `done` array ensures that each movement phase is executed only once.
+
+
+
+### Serial Communication
+- **Baud Rate**: 115200
+- **Data Format**: `value1|value2|value3|value4|value5|value6|value7`
+  - Each value controls the angle of a corresponding servo
+
+### Setup Function
+```cpp
+void setup() {
+  // Attach each servo to corresponding pin
+  thumb.finger.attach(3);
+  index.finger.attach(5);
+  middle.finger.attach(6);
+  ring.finger.attach(9);
+  pinky.finger.attach(10);
+  thumb2.finger.attach(11);
+  qo3.finger.attach(12);
+  
+  // Initialize serial communication
+  Serial.begin(115200);
+  
+  // Set initial positions
+  thumb.finger.write(0);      // Thumb: 0°
+  index.finger.write(180);    // Index: 180°
+  middle.finger.write(180);   // Middle: 180°
+  ring.finger.write(180);     // Ring: 180°
+  pinky.finger.write(180);    // Pinky: 180°
+  qo3.finger.write(90);       // Qo3: 90°
+  thumb2.finger.write(180);   // Thumb2: 180°
+}
+```
+
+- Initializes the servo motors and sets their default positions
+
+### Main Loop
+
+```cpp
+void loop() {
+  if (Serial.available() > 0) {
+    // Parse input format: value1|value2|value3|value4|value5|value6|value7
+    String data = Serial.readStringUntil('\n');
+    
+    // Process values for each servo
+    int values[7];
+    int index = 0;
+    int lastIndex = 0;
+    
+    // Parse pipe-separated values
+    for (int i = 0; i < data.length(); i++) {
+      if (data.charAt(i) == '|' || i == data.length() - 1) {
+        values[index] = data.substring(lastIndex, i).toInt();
+        lastIndex = i + 1;
+        index++;
+      }
+    }
+    
+    // Apply values to servos with any necessary transformations
+    thumb.finger.write(180 - values[0]);  // Reversed
+    index.finger.write(values[1]);
+    middle.finger.write(values[2]);
+    ring.finger.write(values[3]);
+    pinky.finger.write(values[4]);
+    qo3.finger.write(values[5]);
+    thumb2.finger.write((values[6] / 2) + 90);  // Adjusted
+  }
+}
+```
+
+The main loop constantly checks for serial input and updates servo positions accordingly
+
+#### servoRotation() - Advanced movement control
+```cpp
+void servoRotation(double read, Hand hand) {
+  // Divide input into 10 intervals for advanced movement control
+  if (read >= 0.0 && read < 0.1 && !hand.done[0]) {
+    hand.finger.write(0);
+    doneFun(hand.done, 0);
+  }
+  else if (read >= 0.1 && read < 0.2 && !hand.done[1]) {
+    hand.finger.write(20);
+    doneFun(hand.done, 1);
+  }
+  // ...continued for all intervals
+}
+```
+
+- Provides smooth, staged servo movement using 10 value intervals
+- This method prevents the servo from repeating the same motion within the same range
+
+
+
+#### doneFun() - Phase tracking
+```cpp
+void doneFun(bool done[], int num) {
+  // Reset all flags except the current one
+  for (int i = 0; i < 10; i++) {
+    done[i] = false;
+  }
+  done[num] = true;
+}
+```
+
+- Manages the phase-tracking array to ensure only one interval is active at a time
+
+### Visual Feedback (trialRead)
+```cpp
+void trialRead() {
+  // Display potentiometer readings for debugging
+  Serial.print("Thumb: ");
+  Serial.print(analogRead(ThumbPot));
+  Serial.print("\t");
+  // ...repeated for all fingers
+  Serial.println();
+}
+```
+
+- Prints the current analog readings from potentiometers (or sensors) for each finger
+- Very helpful during testing to monitor input behavior in real time.
+
 
 
 
