@@ -2,7 +2,7 @@
 
 This project was developed as a collaborative effort by our team as part of **[RoboTechFair'25]**.
 
-## Team Members
+## 📌 Team Members
 
 - **Hamza Olama** – Team Leader
 - **Adham Elnemr** – Hardware  
