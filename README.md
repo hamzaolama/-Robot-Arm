@@ -184,6 +184,8 @@ Example: `1|0|1|1|0|90` represents:
 
 
 
+
+
 # ESP8266 WebSocket Communication
 
 implementimg WebSocket communication using an ESP8266 microcontroller to receive data from a client device (such as a mobile phone or computer) over a network and forward it to an Arduino board.
