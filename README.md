@@ -487,7 +487,7 @@ void loop() {
 
 The main loop constantly checks for serial input and updates servo positions accordingly
 
-#### servoRotation() - Advanced movement control
+#### Advanced movement control
 ```cpp
 void servoRotation(double read, Hand hand) {
   // Divide input into 10 intervals for advanced movement control
@@ -508,7 +508,7 @@ void servoRotation(double read, Hand hand) {
 
 
 
-#### doneFun() - Phase tracking
+#### Phase tracking
 ```cpp
 void doneFun(bool done[], int num) {
   // Reset all flags except the current one
