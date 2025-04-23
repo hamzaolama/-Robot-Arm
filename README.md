@@ -1,5 +1,21 @@
 # Computer Vision Driven Robotic Arm
 
+This project was developed as a collaborative effort by our team as part of **[RoboTechFair'25]**.
+
+## Team Members
+
+- **Hamza Olama** – Team Leader
+- **Adham Elnemr** – Hardware  
+- **Mohamed Omar** – Hardware 
+- **Adham Hussam** – AI  
+- **Nada** – AI  
+- **Abdelrahman Ashraf** – ESP  
+- **Abdelrahman Ayman** – ESP  
+- **Maram** – Arduino  
+- **Eyad Ahmed** – Arduino  
+
+
+
 ## 📋 Project Overview
 
 This project implements a sophisticated system that allows a robotic arm to mimic human hand movements in real-time. By integrating IoT technology with artificial intelligence, the system captures and processes hand gestures through computer vision techniques and translates them into precise robotic arm movements.
