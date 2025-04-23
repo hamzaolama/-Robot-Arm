@@ -4,7 +4,7 @@
 
 This project implements a sophisticated system that allows a robotic arm to mimic human hand movements in real-time. By integrating IoT technology with artificial intelligence, the system captures and processes hand gestures through computer vision techniques and translates them into precise robotic arm movements.
 
-![Robotic Arm Banner](/api/placeholder/800/200)
+
 
 # HandGestureRecognition
 
@@ -181,6 +181,88 @@ Example: `1|0|1|1|0|90` represents:
 - Ring open
 - Pinky closed
 - 90° rotation
+
+
+# WSClient WebSocket Client
+
+
+The **WSClient** module provides a simple, auto-reconnecting WebSocket client to communicate with an ESP8266 microcontroller. It maintains a persistent connection, retries on failure, and throttles message sends to prevent flooding.
+
+### 📥 Imports & Configuration
+
+```python
+import websocket
+import threading
+import time
+from config import WS_IP
+```
+
+- **websocket**: Provides WebSocket client functionality.
+- **threading**: Enables background threads for non-blocking operations.
+- **time**: Used for tracking and throttling send intervals.
+- **config.WS_IP**: The WebSocket server URL (e.g., on your ESP8266).
+
+---
+
+### 🏗️ WSClient Class
+
+```python
+class WSClient:
+    def __init__(self):
+        self.ws = websocket.WebSocket()
+        self.last_sent_time = 0
+        self.connected = False
+
+        # Start the connection in a background thread
+        threading.Thread(target=self.connect_ws, daemon=True).start()
+```
+
+- **ws**: An instance of `websocket.WebSocket` to manage the socket.
+- **last_sent_time**: Timestamp of the last successful send, for throttling.
+- **connected**: Flag to indicate if the connection is active.
+- **Background Thread**: Automatically attempts to connect without blocking the main thread.
+
+---
+
+### 🔌 connect_ws Method
+
+```python
+    def connect_ws(self):
+        while not self.connected:
+            try:
+                self.ws.connect(WS_IP)
+                self.connected = True
+                print("[✓] Connected to ESP8266 WebSocket")
+            except Exception as e:
+                print(f"[!] WebSocket retrying... {e}")
+                time.sleep(2)
+```
+
+- **Loop Until Connected**: Keeps retrying every 2 seconds until a connection is established.
+- **Error Handling**: Catches exceptions and logs them, then waits before retrying.
+- **Success Feedback**: Logs a confirmation on successful connection.
+
+---
+
+### 📤 send Method
+
+```python
+    def send(self, finger_data):
+
+        if time.time() - self.last_sent_time >= 0.5:
+            try:
+                self.ws.send(str(finger_data))
+                print(f"[→] Sent to ESP: {finger_data}")
+                self.last_sent_time = time.time()
+            except Exception as e:
+                print(f"[!] WebSocket send failed: {e}")
+                self.connected = False
+                threading.Thread(target=self.connect_ws, daemon=True).start()
+```
+
+- **Throttling**: Ensures at least 0.5 seconds between sends to avoid overwhelming the server.
+- **Send Payload**: Converts `finger_data` to string (or JSON) and sends it.
+- **Error Recovery**: On failure, resets connection flag and spawns a reconnect thread.
 
 
 
