@@ -21,6 +21,73 @@ This project was developed as a collaborative effort by our team as part of **[R
 
 This project implements a sophisticated system that allows a robotic arm to mimic human hand movements in real-time. By integrating IoT technology with artificial intelligence, the system captures and processes hand gestures through computer vision techniques and translates them into precise robotic arm movements.
 
+# System Design and Electronics Overview 
+
+🎨 **Design Choice**  
+We chose Ryan Gross’s design because it strikes a perfect balance between Simplicity and Precision and Compatibility with the idea we want to implement 
+
+
+> 🔗 You can view the original design [here](https://www.myminifactory.com/object/3d-print-humanoid-robotic-hand-34508)
+
+> **Special thanks to Ryan Gross!**
+
+## 🛠️ Main Components
+
+### Servo Motors
+- **7 servo motors** SG90 with 180-degree rotation capability:
+  - One servo for each finger (4 fingers)
+  - Two servos for the thumb to control its dual movement
+  - One servo for the wrist: **Metal Gear Servo Motor MG995** to provide greater rotational force
+
+### Processing and Control
+- **ESP8266**: For processing and wireless control 
+- **Arduino Uno**: For servo motors handling 
+
+### Movement System
+- **Elastic Cord**: Responsible for returning fingers to their natural position and maintaining tension
+- **Fishing Line**: Connected to servos and fingers to control movement
+
+### Power Sources
+- **3 Lithium Batteries**: 3.7 volts each
+- **Battery holder**
+- **Power adapter**: 5 volts, 2 amps
+- **Voltage regulator**: 6 volts for the metal servo (MG995)
+
+### Additional Tools and Materials
+- **Super Glue**: For assembling structural parts
+- **Breadboard**: For connecting electronic circuits and jumpers
+- **Jumpers and extension wires**
+- **Various screws** for mounting
+- **Wooden box** to secure the arm
+
+## ⚙️ Working Mechanism
+
+### Finger Movement
+The arm is designed so that each finger can move independently, providing high flexibility in control:
+1. Servo motors control the tension of fishing lines connected to the fingers
+2. When the servo moves, it pulls the line causing the finger to bend
+3. When the servo returns to its original position, the elastic cord returns the finger to its extended position
+
+### Thumb Control
+Due to the importance of thumb movement, two servos are used to control it:
+- First servo for basic movement (bending and extending)
+- Second servo for lateral movement (inward and outward)
+
+### Wrist Movement
+A powerful metal servo (MG995) is used to control wrist movement, allowing a full 180-degree rotation and supporting the entire weight of the hand.
+
+
+## 🔌 Electronic Connections
+All electronic components are connected using a breadboard and jumpers, with care taken to separate control circuits from power circuits to ensure system stability:
+
+1. Connect Arduino to ESP8266 via TX/RX ports
+2. Connect servos to PWM outputs from Arduino
+3. Connect main power source to voltage regulator
+4. Connect batteries to the electrical circuit
+
+
+
+
 
 
 # Hand Gesture Recognition
@@ -412,7 +479,7 @@ The loop function maintains the WebSocket connection by repeatedly calling `webS
 
 
 
-# Controlling servo motors by Arduino Uno based on data received via serial communication
+# Controlling servo motors by Arduino Uno based on data received via Serial Communication
 
 ## 💻 Software Implementation
 
