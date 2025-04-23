@@ -9,7 +9,7 @@ This project was developed as a collaborative effort by our team as part of **[R
 - **Mohamed Omar** – Hardware 
 - **Adham Hussam** – AI  
 - **Nada** – AI
-- **Yousef Rizk** – WS integration  
+- **Yousef Rizk** – WS client  
 - **Abdelrahman Ashraf** – ESP  
 - **Abdelrahman Ayman** – ESP  
 - **Maram** – Arduino  
