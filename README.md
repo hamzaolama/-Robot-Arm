@@ -8,11 +8,11 @@ This project was developed as a collaborative effort by our team as part of **[R
 - **Adham Elnemr** – Hardware  
 - **Mohamed Omar** – Hardware 
 - **Adham Hussam** – AI  
-- **Nada** – AI
+- **Nada Ahmed** – AI
 - **Yousef Rizk** – WS client  
 - **Abdelrahman Ashraf** – ESP  
 - **Abdelrahman Ayman** – ESP  
-- **Maram** – Arduino  
+- **Maram Mohamed** – Arduino  
 - **Eyad Ahmed** – Arduino  
 
 
