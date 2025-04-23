@@ -183,7 +183,7 @@ Example: `1|0|1|1|0|90` represents:
 - 90° rotation
 
 
-# WSClient WebSocket Client
+# WebSocket Client
 
 
 The **WSClient** module provides a simple, auto-reconnecting WebSocket client to communicate with an ESP8266 microcontroller. It maintains a persistent connection, retries on failure, and throttles message sends to prevent flooding.
