@@ -148,7 +148,7 @@ else:
 
 MediaPipe provides 21 landmarks for each detected hand:
 
-![Hand Landmarks](/api/placeholder/500/300)
+![hand landmarks](hand landmarks.jpg)
 
 
 ## 📊 Data Processing
