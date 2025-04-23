@@ -439,20 +439,6 @@ void doneFun(bool done[], int num) {
 
 - Manages the phase-tracking array to ensure only one interval is active at a time
 
-### Visual Feedback (trialRead)
-```cpp
-void trialRead() {
-  // Display potentiometer readings for debugging
-  Serial.print("Thumb: ");
-  Serial.print(analogRead(ThumbPot));
-  Serial.print("\t");
-  // ...repeated for all fingers
-  Serial.println();
-}
-```
-
-- Prints the current analog readings from potentiometers (or sensors) for each finger
-- Very helpful during testing to monitor input behavior in real time.
 
 
 
