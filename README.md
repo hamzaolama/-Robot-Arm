@@ -224,7 +224,7 @@ class WSClient:
 
 ---
 
-### 🔌 connect_ws Method
+### 🔌 Establish WebSocket Connection
 
 ```python
     def connect_ws(self):
