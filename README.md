@@ -37,7 +37,7 @@ We chose Ryan Gross’s design because it strikes a perfect balance between Simp
 - **7 servo motors** SG90 with 180-degree rotation capability:
   - One servo for each finger (4 fingers)
   - Two servos for the thumb to control its dual movement
-  - One servo for the wrist: **Metal Gear Servo Motor MG995** to provide greater rotational force
+  - One servo for the forearm: **Metal Gear Servo Motor MG995** to provide greater rotational force
 
 ### Processing and Control
 - **ESP8266**: For processing and wireless control 
